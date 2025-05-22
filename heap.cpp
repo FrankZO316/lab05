@@ -11,14 +11,13 @@ using std::swap;
 // Pushes a value into the heap, then ensures
 // the heap is correctly arranged
 void Heap::push(int value){
-data.push_back(value);
-    int index = data.size() - 1;
-
-    while (index > 0) {
-        int parent = (index - 1) / 2;
-        if (data[index] < data[parent]) {
-            swap(data[index], data[parent]);
-            index = parent;
+ vdata.push_back(value);
+    int i = vdata.size() - 1;
+    while (i > 0) {
+        int parent = (i - 1) / 2;
+        if (vdata[i] < vdata[parent]) {
+            swap(vdata[i], vdata[parent]);
+            i = parent;
         } else {
             break;
         }
@@ -29,46 +28,43 @@ data.push_back(value);
 // (but does not return it), then ensures
 // the heap is correctly arranged
 void Heap::pop(){
-if (data.empty()) return;
+   if (vdata.empty()) return;
 
-    data[0] = data.back(); 
-    data.pop_back();
+    vdata[0] = vdata.back();
+    vdata.pop_back();
 
-    int index = 0;
-    int size = data.size();
+    int i = 0;
+    int size = vdata.size();
 
     while (true) {
-        int left = 2 * index + 1;
-        int right = 2 * index + 2;
-        int smallest = index;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+        int smallest = i;
 
-        if (left < size && data[left] < data[smallest]) {
+        if (left < size && vdata[left] < vdata[smallest]) {
             smallest = left;
         }
-        if (right < size && data[right] < data[smallest]) {
+        if (right < size && vdata[right] < vdata[smallest]) {
             smallest = right;
         }
+        if (smallest == i) break;
 
-        if (smallest != index) {
-            swap(data[index], data[smallest]);
-            index = smallest;
-        } else {
-            break;
-        }
+        swap(vdata[i], vdata[smallest]);
+        i = smallest;
     }
 }
 
 
 // Returns the minimum element in the heap
 int Heap::top(){
-  if (data.empty()) {
-        throw std::out_of_range("Heap is empty.");
+   if (vdata.empty()) {
+        std::cerr << "Heap is empty!\n";
+        return -1; // or throw an exception
     }
-    return data[0];
+    return vdata[0];
 }
-
 // Returns true if the heap is empty, false otherwise
 bool Heap::empty(){
-  return data.empty();
+  return vdata.empty();
 }
     
