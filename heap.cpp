@@ -11,7 +11,7 @@ using std::swap;
 // Pushes a value into the heap, then ensures
 // the heap is correctly arranged
 void Heap::push(int value){
- vdata.push_back(value);
+vdata.push_back(value);
     int i = vdata.size() - 1;
     while (i > 0) {
         int parent = (i - 1) / 2;
@@ -28,7 +28,9 @@ void Heap::push(int value){
 // (but does not return it), then ensures
 // the heap is correctly arranged
 void Heap::pop(){
-   if (vdata.empty()) return;
+   if (vdata.empty()) {
+        throw std::out_of_range("Heap is empty");
+    }
 
     vdata[0] = vdata.back();
     vdata.pop_back();
@@ -57,12 +59,12 @@ void Heap::pop(){
 
 // Returns the minimum element in the heap
 int Heap::top(){
-   if (vdata.empty()) {
-        std::cerr << "Heap is empty!\n";
-        return -1; // or throw an exception
+    if (vdata.empty()) {
+        throw std::out_of_range("Heap is empty");
     }
     return vdata[0];
 }
+
 // Returns true if the heap is empty, false otherwise
 bool Heap::empty(){
   return vdata.empty();
